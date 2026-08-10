@@ -1,5 +1,7 @@
 # RepoSentinel
 
+[![RepoSentinel Security](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/AnouarMohamed/reposentinel/main/reposentinel-badge.json&style=flat-square)](https://github.com/AnouarMohamed/reposentinel/actions)
+
 A GitHub Action that scores a repository's security posture and gives it a letter grade (A–F).
 
 ## Security Checks (v1)
