@@ -330,7 +330,7 @@ def main():
 
     badge = {
         "schemaVersion": 1,
-        "label": "repo security",
+        "label": "RepoSentinel",
         "message": f"{score}/100 ({grade})",
         "color": {"A": "brightgreen", "B": "green", "C": "yellow", "D": "orange", "F": "red"}[grade],
     }

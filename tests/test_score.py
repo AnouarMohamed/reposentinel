@@ -225,5 +225,6 @@ def test_main_execution(tmp_path, monkeypatch):
     assert badge_file.exists()
     with open(badge_file) as f:
         data = json.load(f)
+        assert data["label"] == "RepoSentinel"
         assert "schemaVersion" in data
         assert "message" in data
