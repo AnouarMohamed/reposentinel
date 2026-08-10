@@ -1,0 +1,55 @@
+name: "RepoSentinel"
+description: "Scores a repo's security posture (branch protection, dependabot, secret scanning, signed commits, CODEOWNERS, security policy) and outputs a grade."
+author: "Anouar"
+branding:
+  icon: "shield"
+  color: "purple"
+
+inputs:
+  github_token:
+    description: "Token used to query the GitHub API. Use secrets.GITHUB_TOKEN at minimum; admin-scoped PAT unlocks branch-protection and vuln-alert checks."
+    required: true
+  repo:
+    description: "owner/repo to score. Defaults to the current repository."
+    required: false
+    default: ${{ github.repository }}
+  fail_below:
+    description: "Fail the action if score is below this threshold (0 disables)."
+    required: false
+    default: "0"
+
+outputs:
+  score:
+    description: "Score out of 100"
+    value: ${{ steps.reposentinel.outputs.score }}
+  grade:
+    description: "Letter grade A-F"
+    value: ${{ steps.reposentinel.outputs.grade }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install dependencies
+      shell: bash
+      run: pip install --quiet requests
+
+    - name: Run RepoSentinel
+      id: reposentinel
+      shell: bash
+      env:
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_REPO: ${{ inputs.repo }}
+        INPUT_FAIL_BELOW: ${{ inputs.fail_below }}
+      run: python "${{ github.action_path }}/src/score.py"
+
+    - name: Upload badge artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: reposentinel-badge
+        path: reposentinel-badge.json

@@ -1,0 +1,23 @@
+name: RepoSentinel scan
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1" # weekly, Monday 6am
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run RepoSentinel
+        uses: anouar/reposentinel@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          fail_below: "0"
