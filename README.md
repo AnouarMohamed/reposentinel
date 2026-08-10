@@ -25,7 +25,7 @@ Checks that cannot be verified with the token provided (e.g. `secrets.GITHUB_TOK
 
 - name: Score Security Posture
   id: reposentinel
-  uses: anouar/reposentinel@v1
+  uses: AnouarMohamed/reposentinel@v1
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     fail_below: "0"   # optional: fail CI if score drops below this threshold (0-100)

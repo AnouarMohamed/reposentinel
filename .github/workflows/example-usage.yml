@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run RepoSentinel
-        uses: anouar/reposentinel@v1
+        uses: AnouarMohamed/reposentinel@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           fail_below: "0"
